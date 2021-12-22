@@ -105,6 +105,14 @@ def datapusher_submit(context, data_dict):
     task_id = result['id']
 
     try:
+        ### ASLBAT ###
+        original_url_base = ''
+        if callback_url_base:
+            original_url_base = config.get("ckan.site_url")
+        log.debug("==================ORIGINAL_URL_BASE: %s" % original_url_base)
+        log.debug("==================CALLBACK_URL_BASE: %s" % callback_url_base)
+        ### ASLBAT ###
+        
         r = requests.post(
             urlparse.urljoin(datapusher_url, 'job'),
             headers={
@@ -121,6 +129,10 @@ def datapusher_submit(context, data_dict):
                     'set_url_type': data_dict.get('set_url_type', False),
                     'task_created': task['last_updated'],
                     'original_url': resource_dict.get('url'),
+                    ### ASLBAT ###
+                    'callback_url_base': callback_url_base,
+                    'original_url_base': original_url_base,
+                    ### ASLBAT ###
                 }
             }))
         r.raise_for_status()
