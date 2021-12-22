@@ -106,6 +106,7 @@ def datapusher_submit(context, data_dict):
 
     try:
         ### ASLBAT ###
+        # See datapusher/datapusher/jobs.py
         original_url_base = ''
         if callback_url_base:
             original_url_base = config.get("ckan.site_url")
